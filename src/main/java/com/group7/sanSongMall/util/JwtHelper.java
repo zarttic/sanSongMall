@@ -1,5 +1,5 @@
 /**
- * {@code @Description} token加密 有一些解密
+ * {@code @Description} 弃用
  *
  * @author liyajun
  * {@code @create}          2022-11-16 22:30
@@ -20,7 +20,7 @@ import java.util.Date;
 public class JwtHelper {
 
     /**
-     * 令牌过期时间
+     * 令牌过期时间  默认为24小时
      */
     private static final long tokenExpirationTime = 24 * 60 * 60 * 1000;
     /**

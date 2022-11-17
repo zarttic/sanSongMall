@@ -1,5 +1,5 @@
 /**
- * {@code @Description}
+ * {@code @Description}  弃用
  *
  * @author liyajun
  * {@code @create}          2022-11-16 23:58
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class AuthContextHolder {
     /**
-     * 得到用户id标记
+     * 得到用户id账号
      *
      * @param request 请求
      * @return {@link Long}
