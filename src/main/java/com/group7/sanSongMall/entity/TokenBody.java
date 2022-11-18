@@ -16,15 +16,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TokenBody {
     /**
-     * 用户id
+     * 用户账号
      */
-    Long userId;
+    String account;
     /**
      * 用户名
      */
-    String userName;
+    String username;
     /**
      * 用户类型
      */
-    Integer userType;
+    Integer usertype;
 }

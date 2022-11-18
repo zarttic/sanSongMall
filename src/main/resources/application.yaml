@@ -3,19 +3,40 @@ spring:
   application:
     name: samsong_mall
   datasource:
-    url: jdbc:mysql://localhost:3306/kd
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/sansongmall
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-test-query: SELECT 1
+      connection-timeout: 60000
+      idle-timeout: 500000
+      max-lifetime: 540000
+      maximum-pool-size: 12
+      minimum-idle: 10
+      pool-name: GuliHikariPool
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    #设置文件上传上限
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+  redis:
+    database: 11
+    host: localhost
+    port: 6379
 server:
   port: 9001
+  servlet:
+    session:
+      cookie:
+        http-only: false
 
 mybatis-plus:
   configuration:
     #添加日志支持
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath*:/mapper/**/*.xml
-
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher

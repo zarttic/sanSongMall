@@ -57,13 +57,18 @@ public class WebConfiguration implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         List<String> excludePath = new ArrayList<>();
         //排除拦截，除了注册登录(此时还没token)，其他都拦截
-        excludePath.add("/userController/login");  //登录
-        excludePath.add("/userController/register");     //注册
+        excludePath.add("/sysController/login/**");  //登录
+        excludePath.add("/sysController/register/**");     //注册
+        excludePath.add("/sysController/info/**");     //注册
         excludePath.add("/sysController/getVerifyCodeImage/**");     //验证码
+        excludePath.add("/test/**");
+        excludePath.add("/favicon.ico");
+        //验证码
 
 //        excludePath.add("/static/**");  //静态资源
 //        excludePath.add("/assets/**");  //静态资源
-        registry.addInterceptor(tokenInterceptor)
+        registry
+                .addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(excludePath).excludePathPatterns("/swagger-resources/**","/swagger-ui/**", "/v3/**", "/error");
         WebMvcConfigurer.super.addInterceptors(registry);

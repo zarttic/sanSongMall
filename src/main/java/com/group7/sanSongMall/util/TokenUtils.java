@@ -49,7 +49,8 @@ public class TokenUtils {
                     //发行人
                     .withIssuer("auth0")
                     //存放数据
-                    .withClaim("username",user.getUsername())
+                    .withClaim("account",user.getAccount())
+                    .withClaim("role", user.getRole())
                     //过期时间
                     .withExpiresAt(expireAt)
                     .sign(Algorithm.HMAC256(TOKEN_SECRET));
@@ -87,8 +88,28 @@ public class TokenUtils {
      * @param token 令牌
      * @return {@link String}
      */
-    public String getUserAccount(String token){
+    public static String getUserAccount(String token){
         return JWT.decode(token).getClaim("account").asString();
+    }
+
+    /**
+     * 获得用户名
+     *
+     * @param token 令牌
+     * @return {@link String}
+     */
+    public String getUsername(String token){
+        return JWT.decode(token).getClaim("username").asString();
+    }
+
+    /**
+     * 得到用户角色
+     *
+     * @param token 令牌
+     * @return {@link String}
+     */
+    public String getUserRole(String token){
+        return JWT.decode(token).getClaim("role").asString();
     }
     public TokenBody getTokenMessage(String token){
 //        JWT.decode(token)

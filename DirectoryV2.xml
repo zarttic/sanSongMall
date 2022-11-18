@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <trees>
+     <tree path="/src/main/java/com/group7/sanSongMall/util/AuthContextHolder.java" title="解析token" extension="java"/>
+     <tree path="/src/main/java/com/group7/sanSongMall/util/CreateVerifyCodeImage.java" title="验证码"
+           extension="java"/>
+     <tree path="/src/main/java/com/group7/sanSongMall/util/Encode_MD5.java" title="加密" extension="java"/>
+     <tree path="/src/main/java/com/group7/sanSongMall/util/JwtHelper.java" title="token" extension="java"/>
+     <tree path="/src/main/java/com/group7/sanSongMall/util/Result.java" title="返回体" extension="java"/>
+     <tree path="/src/main/java/com/group7/sanSongMall/util/ResultCodeEnum.java" title="校验码" extension="java"/>
+ </trees>
