@@ -28,6 +28,7 @@ public class TokenInterceptor implements HandlerInterceptor {
             response.setStatus(HttpServletResponse.SC_OK);
             return true;
         }
+        System.out.println("拦截器处 "+request.getSession());
         response.setCharacterEncoding("utf-8");
         String token = request.getHeader("token");
         if (token!=null){

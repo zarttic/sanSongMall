@@ -15,7 +15,7 @@ import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootConfiguration
-@MapperScan("com.group7.samsong_mall.mapper")
+@MapperScan("com.group7.sanSongMall.mapper")
 public class MyBatisPlusConfig {
 
     /**
