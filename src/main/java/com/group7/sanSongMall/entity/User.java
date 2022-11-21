@@ -48,10 +48,6 @@ public class User {
      */
     private String password;
     /**
-     * 年龄
-     */
-    private Integer age;
-    /**
      * 创建时间
      */
     private Timestamp createTime;

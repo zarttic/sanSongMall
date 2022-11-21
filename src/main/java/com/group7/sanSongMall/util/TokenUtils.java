@@ -108,12 +108,18 @@ public class TokenUtils {
      * @param token 令牌
      * @return {@link String}
      */
-    public String getUserRole(String token){
-        return JWT.decode(token).getClaim("role").asString();
+    public Integer getUserRole(String token){
+        return JWT.decode(token).getClaim("role").asInt();
     }
+
+    /**
+     * 使用tokenBody来集合信息
+     *
+     * @param token 令牌
+     * @return {@link TokenBody}
+     */
     public TokenBody getTokenMessage(String token){
-//        JWT.decode(token)
-        return null;
+        return new TokenBody(getUserAccount(token), getUsername(token), getUserRole(token));
     }
 
 
