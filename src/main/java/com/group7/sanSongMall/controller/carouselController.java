@@ -7,7 +7,12 @@
 
 package com.group7.sanSongMall.controller;
 
+import com.group7.sanSongMall.service.carouselService;
+import com.group7.sanSongMall.util.Result;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,4 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/carouselController")
 public class carouselController {
+    @Autowired
+    carouselService carouselService;
+    //获取轮播图数据
+    @ApiOperation("获取轮播图数据")
+    @GetMapping("/getPic")
+    public Result getPic() {
+        return carouselService.getPic();
+    }
 }

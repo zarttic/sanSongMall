@@ -25,7 +25,7 @@ public class shopcarController {
     // 获取购物车信息
     @ApiOperation("获取购物车信息")
     @GetMapping("/getshopcar")
-    public Result getshopcar( String id){
+    public Result getshopcar(String id){
         return shopcarService.getshopcar(id);
     }
 
