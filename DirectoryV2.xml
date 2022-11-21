@@ -7,4 +7,33 @@
      <tree path="/src/main/java/com/group7/sanSongMall/util/JwtHelper.java" title="token" extension="java"/>
      <tree path="/src/main/java/com/group7/sanSongMall/util/Result.java" title="返回体" extension="java"/>
      <tree path="/src/main/java/com/group7/sanSongMall/util/ResultCodeEnum.java" title="校验码" extension="java"/>
- </trees>
+     <tree path="/src/main/java/com/group7/sanSongMall/entity/Collect.java" title="收藏" extension="java"/>
+     <tree path="/src/main/java/com/group7/sanSongMall/entity/LoginForm.java" title="登录表单" extension="java"/>
+     <tree path="/src/main/java/com/group7/sanSongMall/entity/orders.java" title="订单" extension="java"/>
+     <tree path="/src/main/java/com/group7/sanSongMall/entity/Product.java" title="商品" extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/entity/ProductPicture.java" title="商品图片" extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/entity/Shoppingcart.java" title="购物车" extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/entity/TokenBody.java" title="解析token" extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/entity/User.java" title="用户" extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/entity/Carousel.java" title="轮播图" extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/entity/Category.java" title="产品种类" extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/controller/carouselController.java" title="轮播图控制器"
+          extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/controller/categoryController.java" title="种类管理器"
+          extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/controller/collectController.java" title="收藏管理器"
+          extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/controller/ordersController.java" title="订单管理器"
+          extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/controller/productController.java" title="商品管理器"
+          extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/controller/shopcarController.java" title="购物车管理器"
+          extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/controller/systemController.java" title="系统控制器"
+          extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/controller/testController.java" title="测试" extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/controller/userController.java" title="角色管理"
+          extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/controller/productpicController.java" title="商品图片管理器"
+          extension="java"/>
+</trees>

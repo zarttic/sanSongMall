@@ -7,6 +7,8 @@
 
 package com.group7.sanSongMall.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.group7.sanSongMall.entity.User;
 import com.group7.sanSongMall.util.Result;
@@ -35,4 +37,7 @@ public interface userService extends IService<User> {
      * @return {@link User}
      */
     public Result findUserMsgByAccount(User user);
+
+
+    IPage<User> getUserPage(Page<User> page, String account);
 }

@@ -15,7 +15,20 @@
         <spring-boot.version>2.3.7.RELEASE</spring-boot.version>
     </properties>
 
+
+
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/at.favre.lib/bcrypt -->
+
+        <!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
+
+
+
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>

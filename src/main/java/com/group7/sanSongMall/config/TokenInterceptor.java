@@ -10,7 +10,9 @@ package com.group7.sanSongMall.config;
 import com.alibaba.fastjson2.JSONObject;
 import com.group7.sanSongMall.util.TokenUtils;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 
@@ -20,29 +22,32 @@ import javax.servlet.http.HttpServletResponse;
 @SpringBootConfiguration
 @EnableOpenApi
 public class TokenInterceptor implements HandlerInterceptor {
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
+
     @Override
-    public boolean preHandle(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) {
 
         //跨域请求会首先发一个option请求，直接返回正常状态并通过拦截器
-        if(request.getMethod().equals("OPTIONS")){
+        if (request.getMethod().equals("OPTIONS")) {
             response.setStatus(HttpServletResponse.SC_OK);
             return true;
         }
-        System.out.println("拦截器处 "+request.getSession());
         response.setCharacterEncoding("utf-8");
-        String token = request.getHeader("token");
-        if (token!=null){
-            boolean result= TokenUtils.verify(token);
-            if (result){
+//        String token = request.getHeader("token"); http获取token 弃用
+        String token = redisTemplate.opsForValue().get("token");
+        if (token != null) {
+            boolean result = TokenUtils.verify(token);
+            if (result) {
                 System.out.println("通过拦截器");
                 return true;
             }
         }
         response.setContentType("application/json; charset=utf-8");
         try {
-            JSONObject json=new JSONObject();
-            json.put("msg","token verify fail");
-            json.put("code","500");
+            JSONObject json = new JSONObject();
+            json.put("msg", "token verify fail");
+            json.put("code", "500");
             response.getWriter().append(json.toString());
             System.out.println("认证失败，未通过拦截器");
         } catch (Exception e) {

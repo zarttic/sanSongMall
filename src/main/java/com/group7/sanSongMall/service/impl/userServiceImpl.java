@@ -8,6 +8,8 @@
 package com.group7.sanSongMall.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group7.sanSongMall.entity.User;
 import com.group7.sanSongMall.mapper.userMapper;
@@ -32,11 +34,12 @@ public class userServiceImpl extends ServiceImpl<userMapper, User> implements us
     public Result register(User user) {
         QueryWrapper<User> qw =  new QueryWrapper<>();
         qw.eq("account", user.getAccount());
+        System.out.println(findUserMsgByAccount(user).getData());
         if (findUserMsgByAccount(user).getData() != null){
-            baseMapper.update(user, qw);
+            return Result.fail().message("此账号已被注册");
         }
-        else baseMapper.insert(user);
-        return Result.ok();
+        baseMapper.insert(user);
+        return Result.ok().message("注册成功");
     }
 
     /**
@@ -48,11 +51,9 @@ public class userServiceImpl extends ServiceImpl<userMapper, User> implements us
     @Override
     public Result login(User user) {
         User userinfo = (User)findUserMsgByAccount(user).getData();
-        System.out.println("userServiceImpl 地方 upupup"  + user);
         if (userinfo == null){
             return Result.fail().code(207).message("查无此账号");
         }
-        System.out.println("userServiceImpl 地方"  + user);
         if(!Encode_MD5.encrypt(user.getPassword()).equals(userinfo.getPassword())){
             return Result.fail().code(207).message("密码错误");
         }
@@ -77,5 +78,15 @@ public class userServiceImpl extends ServiceImpl<userMapper, User> implements us
             return  Result.fail().code(207).message("未找到此用户");
         }
         return Result.ok(user1);
+    }
+
+    @Override
+    public IPage<User> getUserPage(Page<User> page, String account) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(account)) {
+            queryWrapper.eq("account", account);
+        }
+        queryWrapper.orderByDesc("id");
+        return baseMapper.selectPage(page, queryWrapper);
     }
 }

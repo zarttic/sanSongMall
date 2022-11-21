@@ -60,6 +60,7 @@ public class WebConfiguration implements WebMvcConfigurer {
         excludePath.add("/sysController/login/**");  //登录
         excludePath.add("/sysController/register/**");     //注册
         excludePath.add("/sysController/info/**");     //注册
+        excludePath.add("/sysController/exit/**");     //注册
         excludePath.add("/sysController/getVerifyCodeImage/**");     //验证码
         excludePath.add("/test/**");
         excludePath.add("/favicon.ico");
