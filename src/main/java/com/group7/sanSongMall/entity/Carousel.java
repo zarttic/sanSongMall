@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @TableName("carousel")
 public class Carousel {
-    @TableId(value = "id",type = IdType.AUTO)
+    @TableId(value = "carousel_id",type = IdType.AUTO)
     private Integer carouselId;
     
     private String imgpath;

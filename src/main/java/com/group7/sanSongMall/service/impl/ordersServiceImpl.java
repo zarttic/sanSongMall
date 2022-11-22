@@ -41,6 +41,7 @@ public class ordersServiceImpl extends ServiceImpl<ordersMapper, orders> impleme
 
     @Override
     public Result getOrdersById(String id) {
+        System.out.println(id);
         if (StringUtils.isEmpty(id)){
             return Result.fail().message("请刷新重试");
         }

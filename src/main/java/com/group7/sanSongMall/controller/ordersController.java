@@ -1,6 +1,6 @@
 /**
  * {@code @Description}
- *
+ *  接口已测试 2022-11-22
  * @author liyajun
  * {@code @create}          2022-11-21 15:59
  */
@@ -29,8 +29,8 @@ public class ordersController {
 
     /**
      * 分页查询信息 带条件 管理员管理的时候使用
-     *
-     * @param pageNo   页面没有
+     *  注意事项 就算orders参数没有也要传入一个空值
+     * @param pageNo   页面编号
      * @param pageSize 页面大小
      * @param orders   订单
      * @return {@link Result}
@@ -53,6 +53,7 @@ public class ordersController {
     @ApiOperation("根据id删除订单")
     @DeleteMapping("/delOrderByIds")
     public Result delOrderByIds(@RequestBody List<Integer> ids){
+        System.out.println(ids);
         ordersService.removeByIds(ids);
         return Result.ok().message("移除了"+ids.size()+"条信息");
     }
@@ -78,8 +79,8 @@ public class ordersController {
      */
     @ApiOperation("获取当前用户所有的订单信息")
     @GetMapping("/getOrdersById")
-    public Result getOrdersById(@RequestBody String id){
-        return ordersService.getOrdersById(id);
+    public Result getOrdersById(String userId){
+        return ordersService.getOrdersById(userId);
     }
 
 }

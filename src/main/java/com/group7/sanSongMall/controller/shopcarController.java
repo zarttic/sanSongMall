@@ -1,6 +1,6 @@
 /**
  * {@code @Description}
- *
+ *  接口测试完成 2022-11-22
  * @author liyajun
  * {@code @create}          2022-11-21 16:36
  */
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "购物车管理")
 @RestController
-@RequestMapping("/ordersController")
+@RequestMapping("/shopcarController")
 public class shopcarController {
 
     @Autowired
@@ -37,26 +37,27 @@ public class shopcarController {
      * @return {@link Result}
      */// 查询用户的购物车的某个商品
     @ApiOperation("查询购物车的某个商品")
-    public Result findOneProduct(@RequestBody Shoppingcart shoppingcart){
-        return shopcarService.getOneProduct(shoppingcart);
+    @GetMapping("/getOneOfShopcar")
+    public Result findOneProduct(String userId,String productId){
+        return shopcarService.getOneProduct(userId,productId);
     }
-    // 新插入购物车信息
+    // 新插入购物车信息  除了id都要传输
     @ApiOperation("新增或者更新购物车商品")
     @PostMapping("/addShopCar")
     public Result addShopCar(@RequestBody Shoppingcart shoppingcart){
         return Result.ok(shopcarService.saveOrUpdate(shoppingcart));
     }
-    // 更新购物车商品数量
+    // 更新购物车商品数量  参数需要全部传入
     @ApiOperation("更新购物车商品数量")
-    @GetMapping("/updateShopCar")
+    @PostMapping("/updateShopCar")
     public Result updateShopCar(@RequestBody Shoppingcart shoppingcart){
         return shopcarService.updateShopCar(shoppingcart);
     }
-    // 删除购物车信息
+    // 删除购物车信息  传入id进行删除
 
     @ApiOperation("删除购物车信息")
     @DeleteMapping("/delShopCar")
-    public Result delShopCar(@RequestBody Shoppingcart shoppingcart){
-        return shopcarService.delShopCar(shoppingcart);
+    public Result delShopCar(String id){
+        return shopcarService.delShopCar(id);
     }
 }

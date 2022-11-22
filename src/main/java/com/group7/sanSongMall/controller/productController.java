@@ -63,7 +63,7 @@ public class productController {
         return productService.getProductPage(page,product);
     }
 //    根据搜索条件,分页获取商品信息
-    @ApiOperation("根据商品分类id,分页获取商品信息")
+    @ApiOperation("分类筛选商品,分页获取商品信息")
     @GetMapping("/getPages/{pageNo}/{pageSize}")
     public Result getPages(@ApiParam("查询页码") @PathVariable("pageNo") Integer pageNo,
                                            @ApiParam("页面大小") @PathVariable("pageSize") Integer pageSize,

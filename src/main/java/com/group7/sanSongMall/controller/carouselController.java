@@ -1,6 +1,6 @@
 /**
- * {@code @Description}
- *
+ * {@code @Description} 轮播图管理
+ * 已完成测试 2022-11-22
  * @author liyajun
  * {@code @create}          2022-11-21 20:30
  */

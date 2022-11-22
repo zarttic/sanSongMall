@@ -1,6 +1,6 @@
 /**
- * {@code @Description}
- *
+ * {@code @Description}种类管理
+ *  接口已测试 2022-11-22
  * @author liyajun
  * {@code @create}          2022-11-21 19:17
  */
