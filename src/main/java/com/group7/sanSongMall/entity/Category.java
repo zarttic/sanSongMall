@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @TableName("category")
 public class Category  {
-    @TableId(value = "id",type = IdType.AUTO)
+    @TableId(value = "category_id",type = IdType.AUTO)
     private Integer categoryId;
     
     private String categoryName;

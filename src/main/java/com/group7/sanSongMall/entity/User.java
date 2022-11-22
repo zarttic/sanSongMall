@@ -22,14 +22,14 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Validated
-@TableName("user")
+@TableName("users")
 public class User {
 
     /**
      * id
      */
     @TableId(value = "id",type = IdType.AUTO)
-    private Integer id;
+    private Integer userId;
     /**
      * 账户 作作为登录凭证
      */

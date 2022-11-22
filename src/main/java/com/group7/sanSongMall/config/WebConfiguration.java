@@ -64,7 +64,16 @@ public class WebConfiguration implements WebMvcConfigurer {
         excludePath.add("/sysController/getVerifyCodeImage/**");     //验证码
         excludePath.add("/test/**");
         excludePath.add("/favicon.ico");
-        //验证码
+        //以下都还是测试接口 权限为全部开放
+        excludePath.add("/productController/**");//商品管理
+        excludePath.add("/categoryController/**");//种类管理
+        excludePath.add("/carouselController/**");//轮播图管理
+        excludePath.add("/userController/**");//用户管理
+        excludePath.add("/shopcarController/**");//购物车管理
+        excludePath.add("/productpicController/**");//商品图片管理
+        excludePath.add("/ordersController/**");//订单管理
+        excludePath.add("/ordersController/getOrdersPage/**");//订单管理
+        excludePath.add("/collectController/**");//收藏管理
 
 //        excludePath.add("/static/**");  //静态资源
 //        excludePath.add("/assets/**");  //静态资源

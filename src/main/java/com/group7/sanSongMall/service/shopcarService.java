@@ -15,9 +15,9 @@ public interface shopcarService extends IService<Shoppingcart> {
 //    获取购物车信息
     Result getshopcar(String id);
 
-    Result getOneProduct(Shoppingcart shoppingcart);
+    Result getOneProduct(String userId,String product_id);
 
     Result updateShopCar(Shoppingcart shoppingcart);
-    Result delShopCar(Shoppingcart shoppingcart);
+    Result delShopCar(String id);
 }
 

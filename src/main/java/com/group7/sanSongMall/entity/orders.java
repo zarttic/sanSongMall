@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 /**
  * (Orders)实体类
  *
@@ -33,7 +35,7 @@ public class orders {
 
     private Double productPrice;
 
-    private Long orderTime;
+    private Timestamp orderTime;
 
 
 }

@@ -39,16 +39,21 @@ public class productServiceImpl extends ServiceImpl<productMapper, Product> impl
     public Result getProductPage(IPage<Product> page, Product product) {
         //如果要加一些参数的话校验product参数
         QueryWrapper<Product> queryWrapper = new QueryWrapper<>();
-        if (!StringUtils.isEmpty(product.getProductName())) {
-            queryWrapper.like("product_name", product.getProductName());
-        }
+        if(product!=null){
+            if (!StringUtils.isEmpty(product.getProductName())) {
+                queryWrapper.like("product_name", product.getProductName());
+            }
 
-        if (!StringUtils.isEmpty(product.getProductTitle())) {
-            queryWrapper.like("product_title", product.getProductTitle());
-        }
+            if (!StringUtils.isEmpty(product.getProductTitle())) {
+                queryWrapper.like("product_title", product.getProductTitle());
+            }
 
-        if (!StringUtils.isEmpty(product.getProductIntro())) {
-            queryWrapper.like("product_intro", product.getProductIntro());
+            if (!StringUtils.isEmpty(product.getProductIntro())) {
+                queryWrapper.like("product_intro", product.getProductIntro());
+            }
+            if (product.getCategoryId() != null){
+                queryWrapper.like("category_id", product.getCategoryId());
+            }
         }
         return Result.ok(baseMapper.selectPage(page, queryWrapper));
     }

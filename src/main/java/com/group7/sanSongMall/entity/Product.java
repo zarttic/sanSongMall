@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @TableName("product")
 public class Product {
 
-    @TableId(value = "id",type = IdType.AUTO)
+    @TableId(value = "product_id",type = IdType.AUTO)
     private Integer productId;
     
     private String productName;
