@@ -40,8 +40,11 @@ public class productController {
     @ApiOperation("根据商品分类名称获取首页展示的商品信息")
     @GetMapping("/getCarousePic")
     public Result getCarousePic(String categoryName) {
+
         return Result.ok(
-                productService.getCarousePic((String) categoryService.getCategoryByName(categoryName).getData())
+                productService.getCarousePic(
+                        categoryService.getCategoryByName(categoryName).getCategoryId().toString()
+                )
         );
     }
 
@@ -66,14 +69,15 @@ public class productController {
         Page<Product> page = new Page<>(pageNo, pageSize);
         Product product = new Product();
         product.setCategoryId(Integer.valueOf(categoryID));
-        return Result.ok(productService.getProductPage(page,product));
+        return Result.ok(productService.getProductPage(page, product));
     }
-//    根据搜索条件,分页获取商品信息
+
+    //    根据搜索条件,分页获取商品信息
     @ApiOperation("分类筛选商品,分页获取商品信息")
     @GetMapping("/getPages/{pageNo}/{pageSize}")
     public Result getPages(@ApiParam("查询页码") @PathVariable("pageNo") Integer pageNo,
-                                           @ApiParam("页面大小") @PathVariable("pageSize") Integer pageSize,
-                                           @ApiParam("分类id") Product product){
+                           @ApiParam("页面大小") @PathVariable("pageSize") Integer pageSize,
+                           @ApiParam("分类id") Product product) {
         Page<Product> page = new Page<>(pageNo, pageSize);
         return Result.ok(productService.getProductPage(page, product));
     }

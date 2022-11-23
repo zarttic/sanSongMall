@@ -39,16 +39,16 @@ public class shopcarController {
      */// 获取购物车信息
     @ApiOperation("获取购物车信息")
     @GetMapping("/getshopcar")
-    public Result getshopcar(String id) {
-        if (StringUtils.isEmpty(id)) {
+    public Result getshopcar(String userId) {
+        if (StringUtils.isEmpty(userId)) {
             return Result.fail().message("信息丢失 请刷新重试");
         }
         List<Product> ans = new ArrayList<>();
-        List<Shoppingcart> shopcar = shopcarService.getshopcar(id);
-        for (int i = 0; i < shopcar.size(); i++) {
-            Product p = productService.getProductById(String.valueOf(shopcar.get(i).getProductId()));
+        List<Shoppingcart> shopcar = shopcarService.getshopcar(userId);
+        for (Shoppingcart shoppingcart : shopcar) {
+            ans.add(productService.getProductById(String.valueOf(shoppingcart.getProductId())));
         }
-        return Result.ok();
+        return Result.ok(ans);
     }
 
     /**
@@ -67,7 +67,12 @@ public class shopcarController {
         return Result.ok(one);
     }
 
-    // 新插入购物车信息  除了id都要传输
+    /**
+     * 没有什么用处 但是我不想删除
+     *
+     * @param shoppingcart shoppingcart
+     * @return {@link Result}
+     */// 新插入购物车信息  除了id都要传输
     @ApiOperation("新增或者更新购物车商品")
     @PostMapping("/addShopCar")
     public Result addShopCar(@RequestBody Shoppingcart shoppingcart) {
@@ -78,7 +83,11 @@ public class shopcarController {
     @ApiOperation("更新购物车商品数量")
     @PostMapping("/updateShopCar")
     public Result updateShopCar(@RequestBody Shoppingcart shoppingcart) {
-        if (shopcarService.updateShopCar(shoppingcart) > 0) return Result.ok(findOneProduct(shoppingcart.getUserId().toString(), shoppingcart.getProductId().toString()));
+        if (shopcarService.updateShopCar(shoppingcart) > 0) {
+            return Result.ok(findOneProduct(
+                    shoppingcart.getUserId().toString(),
+                    shoppingcart.getProductId().toString()));
+        }
         return Result.fail().message("更新失败");
 
     }
