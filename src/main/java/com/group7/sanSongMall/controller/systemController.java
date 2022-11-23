@@ -37,7 +37,8 @@ public class systemController {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    private final static String verifyId = "verifyCode"+CPUSerialNumber.getCPUSerialNumber();
+    private final static String verifyId = "verifyCode" + CPUSerialNumber.getCPUSerialNumber();
+
     /**
      * 获取验证码图片
      *
@@ -47,7 +48,7 @@ public class systemController {
     @ApiOperation("获取验证码图片")
     @ResponseBody
     @GetMapping("/getVerifyCodeImage")
-    public Result getVerifyCodeImage(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    public Result getVerifyCodeImage(HttpServletRequest request, HttpServletResponse response){
 
 //        response.setDateHeader("Expires", 0);
 //        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
@@ -63,12 +64,12 @@ public class systemController {
         deleteKV(verifyId);
 
         //将验证码存储到redis数据库中
-        redisTemplate.opsForValue().set(verifyId,capText,60, TimeUnit.SECONDS );
+        redisTemplate.opsForValue().set(verifyId, capText, 60, TimeUnit.SECONDS);
         //向客户端写出
 
         try {
-            ImageIO.write(verifyCodeImage,"JPEG",response.getOutputStream());
-        }catch (IOException e){
+            ImageIO.write(verifyCodeImage, "JPEG", response.getOutputStream());
+        } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println(capText);
@@ -80,40 +81,40 @@ public class systemController {
     @ApiOperation(value = "登录")
     @ResponseBody
     @PostMapping("/login")
-    public Result login(@RequestBody LoginForm loginForm,HttpServletRequest request)  {
+    public Result login(@RequestBody LoginForm loginForm, HttpServletRequest request) {
 //        Cookie[] cookies = request.getCookies();
-        Result login = userService.login(new User(loginForm.getAccount(),loginForm.getPassword()));
+        Result login = userService.login(new User(loginForm.getAccount(), loginForm.getPassword()));
         System.out.println(loginForm);
         if (login.getData() == null) {
             return login;
         }
         // 获取系统正确的验证码
 //        redis方法 session出错时候使用
-        String verifyCode = redisTemplate.opsForValue().get("verifyCode"+CPUSerialNumber.getCPUSerialNumber());
+        String verifyCode = redisTemplate.opsForValue().get("verifyCode" + CPUSerialNumber.getCPUSerialNumber());
         System.out.println("得到redis里面的" + verifyCode);
-        if (StringUtils.isEmpty(verifyCode)){
+        if (StringUtils.isEmpty(verifyCode)) {
             return Result.fail().message("验证码失效，请重试");
         }
-        if (!verifyCode.equalsIgnoreCase(loginForm.getVerifyCode())){
+        if (!verifyCode.equalsIgnoreCase(loginForm.getVerifyCode())) {
             return Result.fail().message("验证码有误");
         }
         //验证完成之后立马删除
         deleteKV(verifyId);
         User userinfo = (User) login.getData();
-        String token= TokenUtils.sign(userinfo);
-        redisTemplate.opsForValue().set("token",token,10, TimeUnit.HOURS );
+        String token = TokenUtils.sign(userinfo);
+        redisTemplate.opsForValue().set("token", token, 10, TimeUnit.HOURS);
         return Result.ok(token);
     }
 
     @ApiOperation(value = "注册")
     @ResponseBody
     @PostMapping("/register")
-    public Result register(@RequestBody User user){
-        if (!StringUtils.isEmpty(user.getPassword())){
+    public Result register(@RequestBody User user) {
+        if (!StringUtils.isEmpty(user.getPassword())) {
 //            user.setPassword(BcryptCipher.Bcrypt(user.getPassword()).get(BcryptCipher.CIPHER_KEY));
             user.setPassword(Encode_MD5.encrypt(user.getPassword()));
         }
-        if (StringUtils.isEmpty(user.getUsername())){
+        if (StringUtils.isEmpty(user.getUsername())) {
             user.setUsername("user_" + RandomStringUtils.randomNumeric(10));
         }
         //删除状态
@@ -127,14 +128,14 @@ public class systemController {
 
     @ApiOperation(value = "获取登录用户的信息")
     @GetMapping("/info")
-    public Result getInfo(){
+    public Result getInfo() {
         String token = redisTemplate.opsForValue().get("token");
-        if (StringUtils.isEmpty(token)){
+        if (StringUtils.isEmpty(token)) {
             return Result.fail().message("请重新登录").code(202);
         }
         String userAccount = TokenUtils.getUserAccount(token);
         User u = userService.findUserMsgByAccount(new User(userAccount));
-        if (u == null)return Result.fail().message("查无此用户");
+        if (u == null) return Result.fail().message("查无此用户");
         return Result.ok(u);
     }
 
@@ -145,21 +146,21 @@ public class systemController {
      */
     @ApiOperation(value = "退出")
     @GetMapping("/exit")
-    public Result exit(){
+    public Result exit() {
         Set<String> token = redisTemplate.keys("token");
         redisTemplate.delete(token);
         return Result.ok();
     }
 
     @GetMapping("/getVerifyId")
-    public Result getVerifyId(){
+    public Result getVerifyId() {
         return Result.ok(verifyId);
     }
 
 
-    public void deleteKV(String name){
+    public void deleteKV(String name) {
         Set<String> deleteCode = redisTemplate.keys(name);
-        if (deleteCode!=null){
+        if (deleteCode != null) {
             redisTemplate.delete(deleteCode);
         }
     }

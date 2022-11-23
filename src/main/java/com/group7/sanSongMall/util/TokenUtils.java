@@ -73,7 +73,7 @@ public class TokenUtils {
             JWTVerifier jwtVerifier= JWT.require(Algorithm.HMAC256(TOKEN_SECRET)).withIssuer("auth0").build();
             DecodedJWT decodedJWT= ((JWTVerifier) jwtVerifier).verify(token);
             System.out.println("认证通过：");
-            System.out.println("username: " + decodedJWT.getClaim("username").asString());
+            System.out.println("account: " + decodedJWT.getClaim("account").asString());
             System.out.println("过期时间：      " + decodedJWT.getExpiresAt());
         } catch (IllegalArgumentException | JWTVerificationException e) {
             //抛出错误即为验证不通过
