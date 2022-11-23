@@ -13,6 +13,7 @@ import com.group7.sanSongMall.service.userService;
 import com.group7.sanSongMall.util.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -109,7 +110,11 @@ public class systemController {
     @PostMapping("/register")
     public Result register(@RequestBody User user){
         if (!StringUtils.isEmpty(user.getPassword())){
-            user.setPassword(BcryptCipher.Bcrypt(user.getPassword()).get(BcryptCipher.CIPHER_KEY));
+//            user.setPassword(BcryptCipher.Bcrypt(user.getPassword()).get(BcryptCipher.CIPHER_KEY));
+            user.setPassword(Encode_MD5.encrypt(user.getPassword()));
+        }
+        if (StringUtils.isEmpty(user.getUsername())){
+            user.setUsername("user_" + RandomStringUtils.randomNumeric(10));
         }
         //删除状态
         user.setIsDel(1);

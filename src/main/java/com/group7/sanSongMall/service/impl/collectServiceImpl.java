@@ -33,7 +33,7 @@ public class collectServiceImpl extends ServiceImpl<collectMapper, Collect> impl
             return Result.fail().message("此商品已添加收藏,请勿重复添加");
         }
         baseMapper.insert(new Collect(userId,productId));
-        return Result.ok();
+        return Result.ok().message("添加收藏成功");
     }
 
     //    获取用户的所有收藏商品信息

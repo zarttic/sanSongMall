@@ -58,6 +58,7 @@ public class WebConfiguration implements WebMvcConfigurer {
         List<String> excludePath = new ArrayList<>();
         //排除拦截，除了注册登录(此时还没token)，其他都拦截
         excludePath.add("/sysController/login/**");  //登录
+        excludePath.add("/sysController/**");  //登录
         excludePath.add("/sysController/register/**");     //注册
         excludePath.add("/sysController/info/**");     //注册
         excludePath.add("/sysController/exit/**");     //注册

@@ -55,6 +55,7 @@ public class userServiceImpl extends ServiceImpl<userMapper, User> implements us
             return Result.fail().code(207).message("查无此账号");
         }
         if(!Encode_MD5.encrypt(user.getPassword()).equals(userinfo.getPassword())){
+            System.out.println(Encode_MD5.encrypt(user.getPassword()));
             return Result.fail().code(207).message("密码错误");
         }
         return Result.ok(userinfo);

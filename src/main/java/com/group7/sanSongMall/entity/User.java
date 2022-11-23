@@ -28,7 +28,7 @@ public class User {
     /**
      * id
      */
-    @TableId(value = "id",type = IdType.AUTO)
+    @TableId(value = "user_id",type = IdType.AUTO)
     private Integer userId;
     /**
      * 账户 作作为登录凭证
