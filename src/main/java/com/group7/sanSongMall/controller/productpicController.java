@@ -27,7 +27,7 @@ public class productpicController {
     @ApiOperation("根据商品id,获取商品图片")
     @GetMapping("/getProductPic")
     public Result getProductPic(String id) {
-        return productpicService.getProductPic(id);
+        return Result.ok(productpicService.getProductPic(id));
     }
 }
 

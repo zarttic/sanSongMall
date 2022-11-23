@@ -24,19 +24,25 @@ public class productController {
     @Autowired
     private productService productService;
 
+    @Autowired
+    private com.group7.sanSongMall.service.categoryService categoryService;
+
 
     //    根据商品id,获取商品详细信息
     @ApiOperation("根据商品id,获取商品详细信息")
     @GetMapping("/getProductById")
     public Result getProductById(String id) {
-        return productService.getProductById(id);
+
+        return Result.ok(productService.getProductById(id));
     }
 
     //    根据商品分类id获取首页展示的商品信息
-    @ApiOperation("根据商品分类id获取首页展示的商品信息")
+    @ApiOperation("根据商品分类名称获取首页展示的商品信息")
     @GetMapping("/getCarousePic")
-    public Result getCarousePic(String categoryId) {
-        return productService.getCarousePic(categoryId);
+    public Result getCarousePic(String categoryName) {
+        return Result.ok(
+                productService.getCarousePic((String) categoryService.getCategoryByName(categoryName).getData())
+        );
     }
 
     //    分页获取所有的商品信息
@@ -47,7 +53,7 @@ public class productController {
             @ApiParam("页面大小") @PathVariable("pageSize") Integer pageSize,
             @ApiParam("商品模糊查询") @RequestBody Product product) {
         Page<Product> page = new Page<>(pageNo, pageSize);
-        return productService.getProductPage(page, null);
+        return Result.ok(productService.getProductPage(page, null));
 
     }
 
@@ -60,7 +66,7 @@ public class productController {
         Page<Product> page = new Page<>(pageNo, pageSize);
         Product product = new Product();
         product.setCategoryId(Integer.valueOf(categoryID));
-        return productService.getProductPage(page,product);
+        return Result.ok(productService.getProductPage(page,product));
     }
 //    根据搜索条件,分页获取商品信息
     @ApiOperation("分类筛选商品,分页获取商品信息")
@@ -69,7 +75,7 @@ public class productController {
                                            @ApiParam("页面大小") @PathVariable("pageSize") Integer pageSize,
                                            @ApiParam("分类id") Product product){
         Page<Product> page = new Page<>(pageNo, pageSize);
-        return productService.getProductPage(page, product);
+        return Result.ok(productService.getProductPage(page, product));
     }
 }
 

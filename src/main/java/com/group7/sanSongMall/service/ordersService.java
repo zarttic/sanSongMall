@@ -13,6 +13,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.group7.sanSongMall.entity.orders;
 import com.group7.sanSongMall.util.Result;
 
+import java.util.List;
+
 public interface ordersService extends IService<orders> {
 
     /**
@@ -31,6 +33,6 @@ public interface ordersService extends IService<orders> {
      * @param id id
      * @return {@link Result}
      */
-    Result getOrdersById(String id);
+    List<orders> getOrdersById(String id);
 
 }

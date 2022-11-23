@@ -26,6 +26,6 @@ public class carouselController {
     @ApiOperation("获取轮播图数据")
     @GetMapping("/getPic")
     public Result getPic() {
-        return carouselService.getPic();
+        return Result.ok(carouselService.getPic());
     }
 }

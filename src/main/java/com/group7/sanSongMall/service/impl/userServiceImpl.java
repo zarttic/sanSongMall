@@ -34,8 +34,7 @@ public class userServiceImpl extends ServiceImpl<userMapper, User> implements us
     public Result register(User user) {
         QueryWrapper<User> qw =  new QueryWrapper<>();
         qw.eq("account", user.getAccount());
-        System.out.println(findUserMsgByAccount(user).getData());
-        if (findUserMsgByAccount(user).getData() != null){
+        if (findUserMsgByAccount(user) != null){
             return Result.fail().message("此账号已被注册");
         }
         baseMapper.insert(user);
@@ -50,7 +49,7 @@ public class userServiceImpl extends ServiceImpl<userMapper, User> implements us
      */
     @Override
     public Result login(User user) {
-        User userinfo = (User)findUserMsgByAccount(user).getData();
+        User userinfo = findUserMsgByAccount(user);
         if (userinfo == null){
             return Result.fail().code(207).message("查无此账号");
         }
@@ -68,17 +67,12 @@ public class userServiceImpl extends ServiceImpl<userMapper, User> implements us
      * @return {@link Result}
      */
     @Override
-    public Result findUserMsgByAccount(User user) {
-        if (StringUtils.isEmpty(user.getAccount())){
-            return Result.fail().message("空信息");
-        }
+    public User findUserMsgByAccount(User user) {
+
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("account", user.getAccount());
         User user1 = baseMapper.selectOne(queryWrapper);
-        if (user == null){
-            return  Result.fail().code(207).message("未找到此用户");
-        }
-        return Result.ok(user1);
+        return user1;
     }
 
     @Override

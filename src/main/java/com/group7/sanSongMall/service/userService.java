@@ -36,7 +36,7 @@ public interface userService extends IService<User> {
      * @param user 用户
      * @return {@link User}
      */
-    public Result findUserMsgByAccount(User user);
+    public User findUserMsgByAccount(User user);
 
 
     IPage<User> getUserPage(Page<User> page, String account);

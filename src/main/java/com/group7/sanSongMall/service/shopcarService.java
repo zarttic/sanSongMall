@@ -9,15 +9,17 @@ package com.group7.sanSongMall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.group7.sanSongMall.entity.Shoppingcart;
-import com.group7.sanSongMall.util.Result;
+
+import java.util.List;
 
 public interface shopcarService extends IService<Shoppingcart> {
-//    获取购物车信息
-    Result getshopcar(String id);
+    //    获取购物车信息
+    List<Shoppingcart> getshopcar(String id);
 
-    Result getOneProduct(String userId,String product_id);
+    Shoppingcart getOneProduct(String userId, String product_id);
 
-    Result updateShopCar(Shoppingcart shoppingcart);
-    Result delShopCar(String id);
+    int updateShopCar(Shoppingcart shoppingcart);
+
+    int delShopCar(String id);
 }
 

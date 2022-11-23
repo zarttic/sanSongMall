@@ -11,6 +11,7 @@ import com.group7.sanSongMall.service.categoryService;
 import com.group7.sanSongMall.util.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,14 +28,15 @@ public class categoryController {
     @ApiOperation("获取所有的商品分类")
     @GetMapping("/getCategories")
     public Result getCategories(){
-        return categoryService.getCategories();
+        return Result.ok(categoryService.getCategories());
     }
 
     // 连接数据库根据商品分类名称获取分类id
     @ApiOperation("根据分类名称获得分类id")
     @GetMapping("/getCategoryByName")
     public Result getCategoryByName(String categoryName){
-        return categoryService.getCategoryByName(categoryName);
+        if (StringUtils.isEmpty(categoryName))return Result.fail().message("空请求");
+        return Result.ok(categoryService.getCategoryByName(categoryName));
     }
 //    分页获取所有的商品信息
 //    @ApiOperation("分页获取所有商品信息")

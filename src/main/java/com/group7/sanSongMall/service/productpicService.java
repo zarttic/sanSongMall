@@ -9,10 +9,11 @@ package com.group7.sanSongMall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.group7.sanSongMall.entity.ProductPicture;
-import com.group7.sanSongMall.util.Result;
+
+import java.util.List;
 
 public interface productpicService extends IService<ProductPicture> {
     //    根据商品id,获取商品图片
-    Result getProductPic(String id);
+    List<ProductPicture> getProductPic(String id);
 }
 

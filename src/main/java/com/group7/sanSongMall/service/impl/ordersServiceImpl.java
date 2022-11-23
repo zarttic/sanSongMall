@@ -14,10 +14,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group7.sanSongMall.entity.orders;
 import com.group7.sanSongMall.mapper.ordersMapper;
 import com.group7.sanSongMall.service.ordersService;
-import com.group7.sanSongMall.util.Result;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 @Service("/ordersServiceImpl")
 @Transactional
@@ -40,15 +41,13 @@ public class ordersServiceImpl extends ServiceImpl<ordersMapper, orders> impleme
     }
 
     @Override
-    public Result getOrdersById(String id) {
+    public List<orders> getOrdersById(String id) {
         System.out.println(id);
-        if (StringUtils.isEmpty(id)){
-            return Result.fail().message("请刷新重试");
-        }
+
         QueryWrapper<orders> queryWrapper = new
                 QueryWrapper<>();
         queryWrapper.eq("user_id", id);
-        return Result.ok(baseMapper.selectList(queryWrapper));
+        return baseMapper.selectList(queryWrapper);
     }
 
 }

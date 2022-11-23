@@ -133,7 +133,9 @@ public class systemController {
             return Result.fail().message("请重新登录").code(202);
         }
         String userAccount = TokenUtils.getUserAccount(token);
-        return userService.findUserMsgByAccount(new User(userAccount));
+        User u = userService.findUserMsgByAccount(new User(userAccount));
+        if (u == null)return Result.fail().message("查无此用户");
+        return Result.ok(u);
     }
 
     /**
