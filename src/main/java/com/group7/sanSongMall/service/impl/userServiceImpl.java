@@ -71,8 +71,7 @@ public class userServiceImpl extends ServiceImpl<userMapper, User> implements us
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("account", user.getAccount());
-        User user1 = baseMapper.selectOne(queryWrapper);
-        return user1;
+        return baseMapper.selectOne(queryWrapper);
     }
 
     @Override

@@ -8,7 +8,7 @@
 
 package com.group7.sanSongMall.controller;
 
-import com.group7.sanSongMall.entity.Product;
+import com.group7.sanSongMall.controller.dto.shopcarDTO;
 import com.group7.sanSongMall.entity.Shoppingcart;
 import com.group7.sanSongMall.service.shopcarService;
 import com.group7.sanSongMall.util.Result;
@@ -43,10 +43,11 @@ public class shopcarController {
         if (StringUtils.isEmpty(userId)) {
             return Result.fail().message("信息丢失 请刷新重试");
         }
-        List<Product> ans = new ArrayList<>();
         List<Shoppingcart> shopcar = shopcarService.getshopcar(userId);
+        List<shopcarDTO> ans = new ArrayList<>();
+//        Map<Product,Integer> ans = new HashMap<>();
         for (Shoppingcart shoppingcart : shopcar) {
-            ans.add(productService.getProductById(String.valueOf(shoppingcart.getProductId())));
+            ans.add(new shopcarDTO(productService.getProductById(String.valueOf(shoppingcart.getProductId())),shoppingcart.getNum()));
         }
         return Result.ok(ans);
     }
@@ -86,9 +87,9 @@ public class shopcarController {
         if (shopcarService.updateShopCar(shoppingcart) > 0) {
             return Result.ok(findOneProduct(
                     shoppingcart.getUserId().toString(),
-                    shoppingcart.getProductId().toString()));
+                    shoppingcart.getProductId().toString())).message("更新成功");
         }
-        return Result.fail().message("更新失败");
+        return Result.fail().message("放入购物车成功");
 
     }
     // 删除购物车信息  传入id进行删除

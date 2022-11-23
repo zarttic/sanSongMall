@@ -136,6 +136,7 @@ public class systemController {
         String userAccount = TokenUtils.getUserAccount(token);
         User u = userService.findUserMsgByAccount(new User(userAccount));
         if (u == null) return Result.fail().message("查无此用户");
+        System.out.println(u);
         return Result.ok(u);
     }
 
