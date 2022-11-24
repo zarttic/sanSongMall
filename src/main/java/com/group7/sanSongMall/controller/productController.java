@@ -17,6 +17,9 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Api(tags = "商品管理")
 @RestController
 @RequestMapping("/productController")
@@ -38,7 +41,7 @@ public class productController {
 
     //    根据商品分类id获取首页展示的商品信息
     @ApiOperation("根据商品分类名称获取首页展示的商品信息")
-    @GetMapping("/getCarousePic")
+    @GetMapping("/getPromoProduct")
     public Result getCarousePic(String categoryName) {
 
         return Result.ok(
@@ -48,13 +51,25 @@ public class productController {
         );
     }
 
+    @ApiOperation("/getHotProduct")
+    @GetMapping("/getHotProduct")
+    public Result getHotProduct (@RequestBody  List<String> categoryName) {
+        System.out.println(categoryName.size());
+        List<List<Product>> ans = new ArrayList<>();
+        for (String s : categoryName) {
+            ans.add(productService.getCarousePic(
+                    categoryService.getCategoryByName(s).getCategoryId().toString()
+            ));
+        }
+        return Result.ok(ans);
+    }
+
     //    分页获取所有的商品信息
     @ApiOperation("分页获取所有的商品信息")
     @GetMapping("/getProductPage/{pageNo}/{pageSize}")
     public Result getProductPage(
             @ApiParam("查询页码") @PathVariable("pageNo") Integer pageNo,
-            @ApiParam("页面大小") @PathVariable("pageSize") Integer pageSize,
-            @ApiParam("商品模糊查询") @RequestBody Product product) {
+            @ApiParam("页面大小") @PathVariable("pageSize") Integer pageSize) {
         Page<Product> page = new Page<>(pageNo, pageSize);
         return Result.ok(productService.getProductPage(page, null));
 
