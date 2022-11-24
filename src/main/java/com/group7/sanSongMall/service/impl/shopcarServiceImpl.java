@@ -42,8 +42,9 @@ public class shopcarServiceImpl extends ServiceImpl<shopcarMapper, Shoppingcart>
         QueryWrapper<Shoppingcart> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", shoppingcart.getUserId());
         queryWrapper.eq("product_id", shoppingcart.getProductId());
-
-        return baseMapper.update(shoppingcart,queryWrapper);
+        if (baseMapper.update(shoppingcart,queryWrapper) > 0)return 1;
+        baseMapper.insert(shoppingcart);
+        return 0;
     }
 
     @Override

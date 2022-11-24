@@ -33,7 +33,7 @@ public class User {
     /**
      * 账户 作作为登录凭证
      */
-    @NotNull("账号不能为空")
+//    @NotNull("账号不能为空")
     private String account;
     /**
      * 用户名

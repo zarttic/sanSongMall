@@ -10,7 +10,7 @@ package com.group7.sanSongMall.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.group7.sanSongMall.entity.User;
 import com.group7.sanSongMall.service.userService;
-import com.group7.sanSongMall.util.BcryptCipher;
+import com.group7.sanSongMall.util.Encode_MD5;
 import com.group7.sanSongMall.util.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -68,9 +68,11 @@ public class userController {
 
     @PostMapping("/updateUser")
     public Result updateUser(@RequestBody User user){
+        System.out.println("上user"+user);
         if (!StringUtils.isEmpty(user.getPassword())){
-            user.setPassword(BcryptCipher.Bcrypt(user.getPassword()).get(BcryptCipher.CIPHER_KEY));
+            user.setPassword(Encode_MD5.encrypt(user.getPassword()));
         }
+        System.out.println("修改处user"+user);
         userService.updateById(user);
         return Result.ok();
     }
