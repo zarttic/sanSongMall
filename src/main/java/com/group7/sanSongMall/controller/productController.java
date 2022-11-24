@@ -57,7 +57,7 @@ public class productController {
         );
     }
 
-    @ApiOperation("/getHotProduct")
+    @ApiOperation("获取热门商品")
     @RequestMapping("/getHotProduct")
     public Result getHotProduct(@RequestBody List<String> categoryName) {
         System.out.println(categoryName.size());
@@ -95,7 +95,7 @@ public class productController {
 
     //    根据搜索条件,分页获取商品信息
     @ApiOperation("分类筛选商品,分页获取商品信息")
-    @GetMapping("/getPages/{pageNo}/{pageSize}")
+    @GetMapping("/getPages")
     public Result getPages(Integer pageNo,
                            Integer pageSize,
                            @ApiParam("分类id") Product product) {

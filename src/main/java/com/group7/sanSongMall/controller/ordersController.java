@@ -43,7 +43,8 @@ public class ordersController {
 
     /**
      * 分页查询信息 带条件 管理员管理的时候使用
-     *  注意事项 就算orders参数没有也要传入一个空值
+     * 注意事项 就算orders参数没有也要传入一个空值
+     *
      * @param pageNo   页面编号
      * @param pageSize 页面大小
      * @param orders   订单
@@ -61,6 +62,7 @@ public class ordersController {
 
     /**
      * 根据id删除订单
+     *
      * @param ids id
      * @return {@link Result}
      */
@@ -96,7 +98,7 @@ public class ordersController {
             orders.setUserId(Integer.valueOf(userId));
             orders.setProductId(shoppingcart.getProductId());
             orders.setProductNum(shoppingcart.getNum());
-            Product data =  productService.getProductById(String.valueOf(shoppingcart.getProductId()));
+            Product data = productService.getProductById(String.valueOf(shoppingcart.getProductId()));
             //使用实际销售价格计算
             orders.setProductPrice(shoppingcart.getNum() * Double.parseDouble(data.getProductSellingPrice()));
             ordersService.save(orders);
