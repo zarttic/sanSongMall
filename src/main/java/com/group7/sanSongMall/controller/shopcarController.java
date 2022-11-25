@@ -73,7 +73,8 @@ public class shopcarController {
      *
      * @param shoppingcart shoppingcart
      * @return {@link Result}
-     */// 新插入购物车信息  除了id都要传输
+     */
+    // 新插入购物车信息  除了id都要传输
     @ApiOperation("新增或者更新购物车商品")
     @PostMapping("/addShopCar")
     public Result addShopCar(@RequestBody Shoppingcart shoppingcart) {

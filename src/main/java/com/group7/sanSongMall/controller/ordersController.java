@@ -9,6 +9,7 @@
 package com.group7.sanSongMall.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.group7.sanSongMall.controller.dto.orderDTO;
 import com.group7.sanSongMall.entity.Product;
 import com.group7.sanSongMall.entity.Shoppingcart;
 import com.group7.sanSongMall.entity.orders;
@@ -85,7 +86,7 @@ public class ordersController {
      * @return {@link Result}
      */
     @ApiOperation("新增订单")
-    @PostMapping("/addOrders")
+    @GetMapping("/addOrders")
     public Result addOrders(String userId) {
         List<Shoppingcart> shopcar = shopcarService.getshopcar(userId);
         //生成唯一订单id
@@ -135,21 +136,45 @@ public class ordersController {
         List<orders> order = ordersService.getOrdersById(userId);
         //获取所有的订单
         List<Long> ids = order.stream().map(orders::getOrderId).distinct().collect(Collectors.toList());
-        System.out.println(ids);
-        //返回聚合体
-        List<List<orders>> ans = new ArrayList<>();
+        List<List<orderDTO>> ans = new ArrayList<>();
 
-        for (int i = 0; i < ids.size(); i++) {
+        for (Long id : ids) {
             //创建一个新的
-            List<orders> tem = new ArrayList<>();
-            for (int j = 0; j < order.size(); j++) {
-                if (Objects.equals(order.get(j).getOrderId(), ids.get(i))) {
-                    tem.add(order.get(j));
+            List<orderDTO> tem = new ArrayList<>();
+            for (orders orders : order) {
+                //订单id 订单时间 商品id  商品数量 商品价格
+                //商品名称 商品图片
+                if (Objects.equals(orders.getOrderId(), id)) {
+                    orderDTO orderDTO = new orderDTO();
+                    orderDTO.setOrders(orders);
+                    Product productById = productService.getProductById(orders.getProductId().toString());
+                    orderDTO.setProductPic(productById.getProductPicture());
+                    orderDTO.setProductName(productById.getProductName());
+                    tem.add(orderDTO);
                 }
             }
             ans.add(tem);
         }
+//        for (int i = 0; i < ids.size(); i++) {
+//            //创建一个新的
+//            List<orderDTO> tem = new ArrayList<>();
+//            for (int j = 0; j < order.size(); j++) {
+//                //订单id 订单时间 商品id  商品数量 商品价格
+//                //商品名称 商品图片
+//                if (Objects.equals(order.get(j).getOrderId(), ids.get(i))) {
+//                    orderDTO orderDTO = new orderDTO();
+//                    orderDTO.setOrders(order.get(j));
+//                    Product productById = productService.getProductById(order.get(j).getProductId().toString());
+//                    orderDTO.setProductPic(productById.getProductPicture());
+//                    orderDTO.setProductName(productById.getProductName());
+//                    tem.add(orderDTO);
+//                }
+//            }
+//            ans.add(tem);
+//        }
         return Result.ok(ans);
+
+
     }
 
 }
