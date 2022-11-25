@@ -53,4 +53,12 @@ public class shopcarServiceImpl extends ServiceImpl<shopcarMapper, Shoppingcart>
         queryWrapper.eq("user_id", id);
         return baseMapper.delete(queryWrapper);
     }
+
+    @Override
+    public int deleteShoppingCart(String userId, String productId) {
+        QueryWrapper<Shoppingcart> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        queryWrapper.eq("product_id", productId);
+        return baseMapper.delete(queryWrapper);
+    }
 }

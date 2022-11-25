@@ -21,5 +21,6 @@ public interface shopcarService extends IService<Shoppingcart> {
     int updateShopCar(Shoppingcart shoppingcart);
 
     int delShopCar(String id);
+    int deleteShoppingCart(String userId,String productId);
 }
 

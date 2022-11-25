@@ -47,7 +47,7 @@ public class shopcarController {
         List<shopcarDTO> ans = new ArrayList<>();
 //        Map<Product,Integer> ans = new HashMap<>();
         for (Shoppingcart shoppingcart : shopcar) {
-            ans.add(new shopcarDTO(productService.getProductById(String.valueOf(shoppingcart.getProductId())),shoppingcart.getNum()));
+            ans.add(new shopcarDTO(productService.getProductById(String.valueOf(shoppingcart.getProductId())), shoppingcart.getNum()));
         }
         return Result.ok(ans);
     }
@@ -92,9 +92,17 @@ public class shopcarController {
         return Result.fail().message("放入购物车成功");
 
     }
-    // 删除购物车信息  传入id进行删除
 
-    @ApiOperation("删除购物车信息")
+    @ApiOperation("deleteShoppingCart")
+    @GetMapping("/deleteShoppingCart")
+    public Result deleteShoppingCart(String userId, String productId) {
+        if (shopcarService.deleteShoppingCart(userId, productId) > 0) return Result.ok().message("删除成功");
+        return Result.fail().message("删除失败 请刷新重试");
+
+    }
+    // 清空购物车信息  传入id进行删除
+
+    @ApiOperation("清空购物车信息")
     @DeleteMapping("/delShopCar")
     public Result delShopCar(String id) {
         if (shopcarService.delShopCar(id) > 0) Result.ok(true).message("删除购物车成功");
