@@ -48,7 +48,7 @@ public class systemController {
     @ApiOperation("获取验证码图片")
     @ResponseBody
     @GetMapping("/getVerifyCodeImage")
-    public Result getVerifyCodeImage(HttpServletRequest request, HttpServletResponse response){
+    public Result getVerifyCodeImage(HttpServletRequest request, HttpServletResponse response) {
 
 //        response.setDateHeader("Expires", 0);
 //        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");

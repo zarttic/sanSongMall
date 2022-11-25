@@ -14,7 +14,6 @@ import com.group7.sanSongMall.util.Encode_MD5;
 import com.group7.sanSongMall.util.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +36,10 @@ public class userController {
      * @return {@link Result}
      */
     @ApiOperation("分页查询用户信息")
-    @GetMapping("/getUserPage/{pageNo}/{pageSize}")
-    public Result getUserPage(@ApiParam("查询页码") @PathVariable("pageNo") Integer pageNo,
-                              @ApiParam("页面大小") @PathVariable("pageSize") Integer pageSize,
-                              @ApiParam("账户模糊查询") String account){
+    @GetMapping("/getUserPage")
+    public Result getUserPage(Integer pageNo,
+                              Integer pageSize,
+                              String account) {
         Page<User> page = new Page<>(pageNo, pageSize);
         return Result.ok(userService.getUserPage(page, account));
     }
@@ -53,9 +52,9 @@ public class userController {
      */
     @ApiOperation("删除用户")
     @DeleteMapping("/delUserById")
-    public Result delUserById(@RequestBody List<Integer> ids){
+    public Result delUserById(@RequestBody List<Integer> ids) {
         userService.removeByIds(ids);
-        return Result.ok().message("删除了" + ids.size()+"条数据");
+        return Result.ok().message("删除了" + ids.size() + "条数据");
     }
 
     /**
@@ -67,12 +66,12 @@ public class userController {
     @ApiOperation("更新用户")
 
     @PostMapping("/updateUser")
-    public Result updateUser(@RequestBody User user){
-        System.out.println("上user"+user);
-        if (!StringUtils.isEmpty(user.getPassword())){
+    public Result updateUser(@RequestBody User user) {
+        System.out.println("上user" + user);
+        if (!StringUtils.isEmpty(user.getPassword())) {
             user.setPassword(Encode_MD5.encrypt(user.getPassword()));
         }
-        System.out.println("修改处user"+user);
+        System.out.println("修改处user" + user);
         userService.updateById(user);
         return Result.ok();
     }

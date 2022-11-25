@@ -17,6 +17,9 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Api(tags = "商品管理")
 @RestController
 @RequestMapping("/productController")
@@ -28,6 +31,12 @@ public class productController {
     private com.group7.sanSongMall.service.categoryService categoryService;
 
 
+    @ApiOperation("获取所有的商品信息")
+    @GetMapping("/getAllProduct")
+    public Result getAllProduct() {
+        return Result.ok(productService.list(null));
+    }
+
     //    根据商品id,获取商品详细信息
     @ApiOperation("根据商品id,获取商品详细信息")
     @GetMapping("/getProductById")
@@ -38,7 +47,7 @@ public class productController {
 
     //    根据商品分类id获取首页展示的商品信息
     @ApiOperation("根据商品分类名称获取首页展示的商品信息")
-    @GetMapping("/getCarousePic")
+    @RequestMapping("/getPromoProduct")
     public Result getCarousePic(String categoryName) {
 
         return Result.ok(
@@ -48,13 +57,25 @@ public class productController {
         );
     }
 
+    @ApiOperation("获取热门商品")
+    @RequestMapping("/getHotProduct")
+    public Result getHotProduct(@RequestBody List<String> categoryName) {
+        System.out.println(categoryName.size());
+        List<List<Product>> ans = new ArrayList<>();
+        for (String s : categoryName) {
+            ans.add(productService.getCarousePic(
+                    categoryService.getCategoryByName(s).getCategoryId().toString()
+            ));
+        }
+        return Result.ok(ans);
+    }
+
     //    分页获取所有的商品信息
     @ApiOperation("分页获取所有的商品信息")
-    @GetMapping("/getProductPage/{pageNo}/{pageSize}")
+    @GetMapping("/getProductPage")
     public Result getProductPage(
-            @ApiParam("查询页码") @PathVariable("pageNo") Integer pageNo,
-            @ApiParam("页面大小") @PathVariable("pageSize") Integer pageSize,
-            @ApiParam("商品模糊查询") @RequestBody Product product) {
+            @ApiParam("查询页码") Integer pageNo,
+            @ApiParam("页面大小") Integer pageSize) {
         Page<Product> page = new Page<>(pageNo, pageSize);
         return Result.ok(productService.getProductPage(page, null));
 
@@ -62,9 +83,9 @@ public class productController {
 
     //    根据商品分类id,分页获取商品信息
     @ApiOperation("根据商品分类id,分页获取商品信息")
-    @GetMapping("/getProductPageBycategory/{pageNo}/{pageSize}")
-    public Result getProductPageBycategory(@ApiParam("查询页码") @PathVariable("pageNo") Integer pageNo,
-                                           @ApiParam("页面大小") @PathVariable("pageSize") Integer pageSize,
+    @GetMapping("/getProductPageBycategory")
+    public Result getProductPageBycategory(Integer pageNo,
+                                           Integer pageSize,
                                            @ApiParam("分类id") String categoryID) {
         Page<Product> page = new Page<>(pageNo, pageSize);
         Product product = new Product();
@@ -74,11 +95,22 @@ public class productController {
 
     //    根据搜索条件,分页获取商品信息
     @ApiOperation("分类筛选商品,分页获取商品信息")
-    @GetMapping("/getPages/{pageNo}/{pageSize}")
-    public Result getPages(@ApiParam("查询页码") @PathVariable("pageNo") Integer pageNo,
-                           @ApiParam("页面大小") @PathVariable("pageSize") Integer pageSize,
+    @GetMapping("/getPages")
+    public Result getPages(Integer pageNo,
+                           Integer pageSize,
                            @ApiParam("分类id") Product product) {
         Page<Product> page = new Page<>(pageNo, pageSize);
+        return Result.ok(productService.getProductPage(page, product));
+    }
+
+    @ApiOperation("搜索商品")
+    @GetMapping("/getProductBySearch")
+    public Result getProductBySearch(Integer pageNo,
+                                     Integer pageSize,
+                                     String search) {
+        Page<Product> page = new Page<>(pageNo, pageSize);
+        Product product = new Product();
+        product.setProductName(search);
         return Result.ok(productService.getProductPage(page, product));
     }
 }

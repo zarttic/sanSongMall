@@ -18,6 +18,13 @@
 
 
     <dependencies>
+        <!--   支付宝支付的依赖     -->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>4.16.2.ALL</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/at.favre.lib/bcrypt -->
 
         <!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
