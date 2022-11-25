@@ -29,7 +29,7 @@ public class collectController {
 
     //    把收藏商品信息插入数据库
     @ApiOperation("把收藏商品信息插入数据库")
-    @PostMapping("/addCollect")
+    @GetMapping("/addCollect")
     public Result addCollect(String userId, String productId) {
         if (!collectService.getOneCollect(userId, productId).isEmpty()) return Result.fail().message("此商品已添加");
         return Result.ok(collectService.addCollect(userId, productId));
