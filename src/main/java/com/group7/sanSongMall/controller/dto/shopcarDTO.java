@@ -18,9 +18,10 @@ import lombok.NoArgsConstructor;
 public class shopcarDTO {
     Product product;
     int num;
-    shopcarDTO(int num,Product p){
+    boolean check;
+    shopcarDTO(int num,Product p,boolean b){
         this.num = num;
         this.product = p;
-
+        this.check=b;
     }
 }

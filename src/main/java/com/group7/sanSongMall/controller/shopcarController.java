@@ -47,7 +47,7 @@ public class shopcarController {
         List<shopcarDTO> ans = new ArrayList<>();
 //        Map<Product,Integer> ans = new HashMap<>();
         for (Shoppingcart shoppingcart : shopcar) {
-            ans.add(new shopcarDTO(productService.getProductById(String.valueOf(shoppingcart.getProductId())), shoppingcart.getNum()));
+            ans.add(new shopcarDTO(productService.getProductById(String.valueOf(shoppingcart.getProductId())), shoppingcart.getNum(),false));
         }
         return Result.ok(ans);
     }
