@@ -78,7 +78,14 @@ public class shopcarController {
     @ApiOperation("新增或者更新购物车商品")
     @PostMapping("/addShopCar")
     public Result addShopCar(@RequestBody Shoppingcart shoppingcart) {
-        return Result.ok(shopcarService.saveOrUpdate(shoppingcart));
+        //查到有没有 有的话 数量新增
+        Shoppingcart oneProduct = shopcarService.getOneProduct(shoppingcart.getUserId().toString(), shoppingcart.getProductId().toString());
+        if (oneProduct != null){
+            oneProduct.setNum(oneProduct.getNum() + 1);
+            shopcarService.updateShopCar(oneProduct);
+            return Result.ok().message("该商品在购物车里的数量+1");
+        }
+        return Result.ok(shopcarService.save(shoppingcart));
     }
 
     // 更新购物车商品数量  参数需要全部传入

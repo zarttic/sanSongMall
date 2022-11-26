@@ -14,6 +14,7 @@ import com.group7.sanSongMall.util.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +50,7 @@ public class productController {
     @ApiOperation("根据商品分类名称获取首页展示的商品信息")
     @RequestMapping("/getPromoProduct")
     public Result getCarousePic(String categoryName) {
+        if (StringUtils.isEmpty(categoryName))return Result.fail().message("空串");
 
         return Result.ok(
                 productService.getCarousePic(
