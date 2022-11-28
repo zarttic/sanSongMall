@@ -18,7 +18,14 @@
 
 
     <dependencies>
-<!--        ip属地依赖-->
+<!--        注解处理器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!--        ip属地依赖-->
         <dependency>
             <groupId>org.lionsoul</groupId>
             <artifactId>ip2region</artifactId>
@@ -29,7 +36,13 @@
         <dependency>
             <groupId>com.alipay.sdk</groupId>
             <artifactId>alipay-sdk-java</artifactId>
-            <version>4.16.2.ALL</version>
+            <version>4.22.110.ALL</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.7.20</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/at.favre.lib/bcrypt -->

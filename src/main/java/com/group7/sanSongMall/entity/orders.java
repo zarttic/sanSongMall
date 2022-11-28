@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 @TableName("orders")
 public class orders {
 
-    @TableId(value = "id",type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     private Long orderId;
@@ -34,6 +34,8 @@ public class orders {
     private Integer productNum;
 
     private Double productPrice;
+
+    private String location;
 
     private Timestamp orderTime;
 

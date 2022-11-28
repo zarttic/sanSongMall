@@ -22,6 +22,8 @@ public class IpController {
     public static String getIpAddress(HttpServletRequest request) throws IOException {
         // 获取请求主机IP地址,如果通过代理进来，则透过防火墙获取真实IP地址
         String ip = request.getHeader("X-Forwarded-For");
+        if (ip == null)return  "183.213.60.34";
+
         if (ip.length() > 15) {
             String[] ips = ip.split(",");
             for (int index = 0; index < ips.length; index++) {

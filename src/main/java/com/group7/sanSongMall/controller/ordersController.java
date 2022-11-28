@@ -25,6 +25,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -87,35 +88,44 @@ public class ordersController {
      */
     @ApiOperation("新增订单")
     @GetMapping("/addOrders")
-    public Result addOrders(String userId) {
-        if (StringUtils.isEmpty(userId)) return Result.fail().message("空数据");
+    public Result addOrders(String userId,String locationId,String productIds) {
+        System.out.println(userId);
+        System.out.println(locationId);
+        System.out.println(productIds);
+        if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(productIds) || StringUtils.isEmpty(locationId)) return Result.fail().message("空数据");
         List<Shoppingcart> shopcar = shopcarService.getshopcar(userId);
+        List<String> strings = Arrays.stream(productIds.split(",")).collect(Collectors.toList());
         //生成唯一订单id
         SnowFlake idWorker = new SnowFlake(0, 0);
         long l = idWorker.nextId();
         System.out.println(l);
+        //遍历所有的订单
         for (Shoppingcart shoppingcart : shopcar) {
-            orders orders = new orders();
-            orders.setOrderId(l);
-            orders.setUserId(Integer.valueOf(userId));
-            orders.setProductId(shoppingcart.getProductId());
-            orders.setProductNum(shoppingcart.getNum());
-            Product data = productService.getProductById(String.valueOf(shoppingcart.getProductId()));
-            //使用实际销售价格计算
-            orders.setProductPrice(shoppingcart.getNum() * Double.parseDouble(data.getProductSellingPrice()));
-            ordersService.save(orders);
+            for (String productId : strings) {
+                if (productId.equals(shoppingcart.getProductId().toString())) {
+                    orders orders = new orders();
+                    orders.setOrderId(l);
+                    orders.setUserId(Integer.valueOf(userId));
+                    orders.setProductId(shoppingcart.getProductId());
+                    orders.setProductNum(shoppingcart.getNum());
+                    orders.setLocation(locationId);
+                    Product data = productService.getProductById(String.valueOf(shoppingcart.getProductId()));
+                    //使用实际销售价格计算
+                    orders.setProductPrice(shoppingcart.getNum() * Double.parseDouble(data.getProductSellingPrice()));
+                    ordersService.save(orders);
+                }
+
+            }
+
         }
-//        for (int i = 0; i < shopcar.size(); i++) {
-//            orders orders = new orders();
-//            orders.setOrderId(l);
-//            orders.setUserId(Integer.valueOf(userId));
-//            orders.setProductId(shopcar.get(i).getProductId());
-//            orders.setProductNum(shopcar.get(i).getNum());
-//            Product data = (Product) productService.getProductById(String.valueOf(shopcar.get(i).getProductId())).getData();
-//            orders.setProductPrice(shopcar.get(i).getNum() * Double.parseDouble(data.getProductPrice()));
-//            ordersService.save(orders);
-//        }
-        if (shopcarService.delShopCar(userId) > 0) return Result.ok().message("清空购物车成功");
+        int cnt = 0;
+        //开始删除购物车里面的内容
+        for (String string : strings) {
+            cnt+=shopcarService.deleteShoppingCart(userId, string);
+        }
+
+
+        if (cnt == strings.size()) return Result.ok().message("清空购物车成功");
         return Result.fail().message("清空购物车失败 请刷新重试 ");
     }
 

@@ -50,4 +50,11 @@ public class ordersServiceImpl extends ServiceImpl<ordersMapper, orders> impleme
         return baseMapper.selectList(queryWrapper);
     }
 
+    @Override
+    public orders getOrderByOrderId(String orderId) {
+        QueryWrapper<orders> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("order_id", orderId);
+        return baseMapper.selectOne(queryWrapper);
+    }
+
 }

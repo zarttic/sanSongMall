@@ -35,4 +35,6 @@ public interface ordersService extends IService<orders> {
      */
     List<orders> getOrdersById(String id);
 
+    orders getOrderByOrderId(String orderId);
+
 }
