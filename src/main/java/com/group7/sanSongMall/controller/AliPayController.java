@@ -16,6 +16,7 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.group7.sanSongMall.config.AliPayConfig;
 import com.group7.sanSongMall.entity.AliPay;
 import com.group7.sanSongMall.entity.orders;
+import com.group7.sanSongMall.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -67,6 +69,7 @@ public class AliPayController {
         // 2. 创建 Request并设置Request参数
         AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();  // 发送请求的 Request类
         request.setNotifyUrl(aliPayConfig.getNotifyUrl());
+        request.setReturnUrl(aliPayConfig.getReturnUrl());//回调接口
         JSONObject bizContent = new JSONObject();
         bizContent.set("out_trade_no", aliPay.getTraceNo());  // 我们自己生成的订单编号
         bizContent.set("total_amount", aliPay.getTotalAmount()); // 订单的总金额
@@ -95,7 +98,7 @@ public class AliPayController {
      * @throws Exception 异常
      */
     @PostMapping("/notify")  // 注意这里必须是POST接口
-    public String payNotify(HttpServletRequest request) throws Exception {
+    public Result payNotify(HttpServletRequest request) throws Exception {
         if (request.getParameter("trade_status").equals("TRADE_SUCCESS")) {
             System.out.println("=========支付宝异步回调========");
 
@@ -125,15 +128,15 @@ public class AliPayController {
                 System.out.println("买家付款时间: " + params.get("gmt_payment"));
                 System.out.println("买家付款金额: " + params.get("buyer_pay_amount"));
 
-                // 查询订单
-                orders orders = ordersService.getOrderByOrderId(outTradeNo);
-
-                if (orders != null) {
-                    orders.setOrderId(Long.valueOf(alipayTradeNo));
+                // 更新订单付款状态
+                List<orders> or = ordersService.getOrderByOrderId(outTradeNo);
+                for (orders orders : or) {
+                    orders.setState(1);
                     ordersService.updateById(orders);
                 }
+
             }
         }
-        return "success";
+        return Result.ok().message("支付成功");
     }
 }

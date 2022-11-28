@@ -25,7 +25,7 @@ public class orders {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private Long orderId;
+    private String orderId;
 
     private Integer userId;
 
@@ -36,6 +36,8 @@ public class orders {
     private Double productPrice;
 
     private String location;
+
+    private Integer state;
 
     private Timestamp orderTime;
 

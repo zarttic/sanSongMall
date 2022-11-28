@@ -98,17 +98,19 @@ public class ordersController {
         //生成唯一订单id
         SnowFlake idWorker = new SnowFlake(0, 0);
         long l = idWorker.nextId();
-        System.out.println(l);
+        String tem = String.valueOf(l);
+        System.out.println("生成的密钥为" + l);
         //遍历所有的订单
         for (Shoppingcart shoppingcart : shopcar) {
             for (String productId : strings) {
                 if (productId.equals(shoppingcart.getProductId().toString())) {
                     orders orders = new orders();
-                    orders.setOrderId(l);
+                    orders.setOrderId(tem);
                     orders.setUserId(Integer.valueOf(userId));
                     orders.setProductId(shoppingcart.getProductId());
                     orders.setProductNum(shoppingcart.getNum());
                     orders.setLocation(locationId);
+                    orders.setState(0);
                     Product data = productService.getProductById(String.valueOf(shoppingcart.getProductId()));
                     //使用实际销售价格计算
                     orders.setProductPrice(shoppingcart.getNum() * Double.parseDouble(data.getProductSellingPrice()));
@@ -124,9 +126,9 @@ public class ordersController {
             cnt+=shopcarService.deleteShoppingCart(userId, string);
         }
 
-
-        if (cnt == strings.size()) return Result.ok().message("清空购物车成功");
-        return Result.fail().message("清空购物车失败 请刷新重试 ");
+        System.out.println("生成的密钥为" + tem);
+        if (cnt == strings.size()) return Result.ok(tem).message("创建订单成功");
+        return Result.fail().message("创建订单失败");
     }
 
     /**
@@ -146,10 +148,10 @@ public class ordersController {
         //先查出所有的订单信息
         List<orders> order = ordersService.getOrdersById(userId);
         //获取所有的订单
-        List<Long> ids = order.stream().map(orders::getOrderId).distinct().collect(Collectors.toList());
+        List<String> ids = order.stream().map(orders::getOrderId).distinct().collect(Collectors.toList());
         List<List<orderDTO>> ans = new ArrayList<>();
 
-        for (Long id : ids) {
+        for (String id : ids) {
             //创建一个新的
             List<orderDTO> tem = new ArrayList<>();
             for (orders orders : order) {
