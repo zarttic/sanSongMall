@@ -62,6 +62,7 @@ public class shopcarController {
     @ApiOperation("查询购物车的某个商品")
     @GetMapping("/getOneOfShopcar")
     public Result findOneProduct(String userId, String productId) {
+        if (StringUtils.isEmpty(userId)|| StringUtils.isEmpty(productId))return Result.fail().message("空数据");
         Shoppingcart one = shopcarService.getOneProduct(userId, productId);
 
         if (one == null) return Result.fail().message("未查询到");
@@ -78,6 +79,7 @@ public class shopcarController {
     @ApiOperation("新增或者更新购物车商品")
     @PostMapping("/addShopCar")
     public Result addShopCar(@RequestBody Shoppingcart shoppingcart) {
+        if (shoppingcart == null ||  shoppingcart.getUserId() == null ||shoppingcart.getProductId() == null ) return Result.fail().message("传入数据错误");
         //查到有没有 有的话 数量新增
         Shoppingcart oneProduct = shopcarService.getOneProduct(shoppingcart.getUserId().toString(), shoppingcart.getProductId().toString());
         if (oneProduct != null){
@@ -92,6 +94,7 @@ public class shopcarController {
     @ApiOperation("更新购物车商品数量")
     @PostMapping("/updateShopCar")
     public Result updateShopCar(@RequestBody Shoppingcart shoppingcart) {
+        if (shoppingcart == null ||  shoppingcart.getUserId() == null ||shoppingcart.getProductId() == null ) return Result.fail().message("传入数据错误");
         if (shopcarService.updateShopCar(shoppingcart) > 0) {
             return Result.ok(findOneProduct(
                     shoppingcart.getUserId().toString(),
@@ -104,6 +107,7 @@ public class shopcarController {
     @ApiOperation("deleteShoppingCart")
     @GetMapping("/deleteShoppingCart")
     public Result deleteShoppingCart(String userId, String productId) {
+        if (StringUtils.isEmpty(userId)|| StringUtils.isEmpty(productId))return Result.fail().message("空数据");
         if (shopcarService.deleteShoppingCart(userId, productId) > 0) return Result.ok().message("删除成功");
         return Result.fail().message("删除失败 请刷新重试");
 
@@ -113,6 +117,7 @@ public class shopcarController {
     @ApiOperation("清空购物车信息")
     @DeleteMapping("/delShopCar")
     public Result delShopCar(String id) {
+        if (StringUtils.isEmpty(id)) return Result.fail().message("空数据");
         if (shopcarService.delShopCar(id) > 0) Result.ok(true).message("删除购物车成功");
         return Result.fail(false).message("购物车为空");
     }

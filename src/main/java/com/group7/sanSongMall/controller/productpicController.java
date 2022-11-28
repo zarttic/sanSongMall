@@ -10,6 +10,7 @@ package com.group7.sanSongMall.controller;
 import com.group7.sanSongMall.util.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ public class productpicController {
     @ApiOperation("根据商品id,获取商品图片")
     @GetMapping("/getProductPic")
     public Result getProductPic(String id) {
+        if (StringUtils.isEmpty(id))return Result.fail().message("空数据");
         return Result.ok(productpicService.getProductPic(id));
     }
 }

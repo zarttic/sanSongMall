@@ -88,6 +88,7 @@ public class ordersController {
     @ApiOperation("新增订单")
     @GetMapping("/addOrders")
     public Result addOrders(String userId) {
+        if (StringUtils.isEmpty(userId)) return Result.fail().message("空数据");
         List<Shoppingcart> shopcar = shopcarService.getshopcar(userId);
         //生成唯一订单id
         SnowFlake idWorker = new SnowFlake(0, 0);

@@ -7,6 +7,7 @@
 
 package com.group7.sanSongMall.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +32,7 @@ public class IpController {
                 }
             }
         }
+        if (StringUtils.isEmpty(ip))ip = "183.213.60.34";
         return ip;
     }
 }

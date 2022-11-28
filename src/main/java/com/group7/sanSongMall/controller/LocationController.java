@@ -53,6 +53,7 @@ public class LocationController {
     @ApiOperation("更新地址")
     @PostMapping("/updateLocation")
     public Result updateLocation(@RequestBody Location location){
+        if (location == null || location.getId() == null) return Result.fail().message("空数据");
         //需要传入id
         if (locationService.updateById(location)) return Result.ok().message("更新成功");
         return Result.fail().message("更新失败 请重试");

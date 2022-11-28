@@ -42,7 +42,7 @@ public class productController {
     @ApiOperation("根据商品id,获取商品详细信息")
     @GetMapping("/getProductById")
     public Result getProductById(String id) {
-
+        if (StringUtils.isEmpty(id))return Result.fail().message("空数据");
         return Result.ok(productService.getProductById(id));
     }
 
@@ -50,7 +50,7 @@ public class productController {
     @ApiOperation("根据商品分类名称获取首页展示的商品信息")
     @RequestMapping("/getPromoProduct")
     public Result getCarousePic(String categoryName) {
-        if (StringUtils.isEmpty(categoryName))return Result.fail().message("空串");
+        if (StringUtils.isEmpty(categoryName))return Result.fail().message("空数据");
 
         return Result.ok(
                 productService.getCarousePic(
