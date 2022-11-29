@@ -78,9 +78,9 @@ public class userServiceImpl extends ServiceImpl<userMapper, User> implements us
     public IPage<User> getUserPage(Page<User> page, String account) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(account)) {
-            queryWrapper.eq("account", account);
+            queryWrapper.like("account", account);
         }
-        queryWrapper.orderByDesc("id");
+//        queryWrapper.orderByDesc("id");
         return baseMapper.selectPage(page, queryWrapper);
     }
 }
