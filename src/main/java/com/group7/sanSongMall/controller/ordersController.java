@@ -42,6 +42,17 @@ public class ordersController {
     @Autowired
     productService productService;
 
+    @ApiOperation("将订单设置为失效状态")
+    @GetMapping("/setExpired")
+    public Result setExpired(String orderId){
+        List<orders> orderByOrderId = ordersService.getOrderByOrderId(orderId);
+        for (int i = 0; i < orderByOrderId.size(); i++) {
+            orderByOrderId.get(i).setDelay(0);
+            orderByOrderId.get(i).setState(-1);
+            ordersService.updateById(orderByOrderId.get(i));
+        }
+        return Result.ok();
+    }
 
     /**
      * 分页查询信息 带条件 管理员管理的时候使用
@@ -111,6 +122,8 @@ public class ordersController {
                     orders.setProductNum(shoppingcart.getNum());
                     orders.setLocation(locationId);
                     orders.setState(0);
+                    //为秒数 默认为两小时
+                    orders.setDelay(7200);
                     Product data = productService.getProductById(String.valueOf(shoppingcart.getProductId()));
                     //使用实际销售价格计算
                     orders.setProductPrice(shoppingcart.getNum() * Double.parseDouble(data.getProductSellingPrice()));

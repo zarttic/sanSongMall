@@ -8,9 +8,9 @@
 package com.group7.sanSongMall.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.group7.sanSongMall.entity.Location;
+import com.group7.sanSongMall.entity.Locations;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LocationMapper extends BaseMapper<Location> {
+public interface LocationMapper extends BaseMapper<Locations> {
 }

@@ -14,11 +14,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("location")
-public class Location {
+public class Locations implements Serializable {
+
+    private static final long serialVersionUID = -12948971590000672L;
     /**
      * 自增id
      */

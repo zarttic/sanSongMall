@@ -7,7 +7,7 @@
 
 package com.group7.sanSongMall.controller;
 
-import com.group7.sanSongMall.entity.Location;
+import com.group7.sanSongMall.entity.Locations;
 import com.group7.sanSongMall.service.LocationService;
 import com.group7.sanSongMall.util.Result;
 import io.swagger.annotations.Api;
@@ -34,28 +34,29 @@ public class LocationController {
 
     @ApiOperation("新增地址")
     @PostMapping("/addLocation")
-    public Result addLocation(@RequestBody Location location) {
-        if (location == null || location.getUserId() == null) return Result.fail().message("传入空数据");
-        List<Location> locationById = locationService.getLocationById(location.getUserId().toString());
+    public Result addLocation(@RequestBody Locations locations) {
+        if (locations == null || locations.getUserId() == null) return Result.fail().message("传入空数据");
+        List<Locations> locationsById = locationService.getLocationById(locations.getUserId().toString());
         //若是存在两个相同的话就
-        for (Location location1 : locationById) {
-            if (check(location1,location)){
+        for (Locations locations1 : locationsById) {
+            if (check(locations1, locations)){
                 return Result.fail().message("存在两个相同的地址");
             }
         }
 
         //不存在就插入
-        if (locationService.save(location))return Result.ok().message("新增地址成功");
+        if (locationService.save(locations))return Result.ok().message("新增地址成功");
         return Result.fail().message("未知原因 新增失败 ");
     }
 
 
     @ApiOperation("更新地址")
     @PostMapping("/updateLocation")
-    public Result updateLocation(@RequestBody Location location){
-        if (location == null || location.getId() == null) return Result.fail().message("空数据");
+    public Result updateLocation(@RequestBody Locations locations){
+        System.out.println(locations);
+        if (locations == null || locations.getId() == null) return Result.fail().message("空数据");
         //需要传入id
-        if (locationService.updateById(location)) return Result.ok().message("更新成功");
+        if (locationService.updateById(locations)) return Result.ok().message("更新成功");
         return Result.fail().message("更新失败 请重试");
     }
 
@@ -67,7 +68,7 @@ public class LocationController {
         return Result.fail().message("删除失败");
     }
 
-    public boolean check(Location l1,Location l2){
+    public boolean check(Locations l1, Locations l2){
         return l1.getUserId().equals(l2.getUserId()) &&
                 l1.getUsername().equals(l2.getUsername()) &&
                 l1.getPhone().equals(l2.getPhone()) &&

@@ -79,6 +79,7 @@ public class WebConfiguration implements WebMvcConfigurer {
         excludePath.add("/public/**");//图片
         excludePath.add("/ip/**");//图片
         excludePath.add("/LocationController/**");//地址
+        excludePath.add("/alipay/**");//地址
 
 //        excludePath.add("/static/**");  //静态资源
 //        excludePath.add("/assets/**");  //静态资源

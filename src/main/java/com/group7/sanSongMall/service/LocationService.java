@@ -8,12 +8,12 @@
 package com.group7.sanSongMall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.group7.sanSongMall.entity.Location;
+import com.group7.sanSongMall.entity.Locations;
 
 import java.util.List;
 
-public interface LocationService extends IService<Location> {
+public interface LocationService extends IService<Locations> {
 
-    List<Location> getLocationById(String userId);
-    int addLocation(Location location);
+    List<Locations> getLocationById(String userId);
+    int addLocation(Locations locations);
 }
