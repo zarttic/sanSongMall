@@ -50,11 +50,20 @@ public class userController {
      * @param ids id
      * @return {@link Result}
      */
-    @ApiOperation("删除用户")
-    @DeleteMapping("/delUserById")
+    @ApiOperation("批量删除用户")
+    @DeleteMapping("/delUserByIds")
     public Result delUserById(@RequestBody List<Integer> ids) {
+        System.out.println("要删除的1"+ids);
         userService.removeByIds(ids);
         return Result.ok().message("删除了" + ids.size() + "条数据");
+    }
+
+    @ApiOperation("删除单个用户")
+    @DeleteMapping("/delUserById")
+    public Result delUserById(String id) {
+        System.out.println("要删除的2"+id);
+        userService.removeById(id);
+        return Result.ok().message("删除了" + 1 + "条数据");
     }
 
     /**
