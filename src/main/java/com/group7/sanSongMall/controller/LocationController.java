@@ -54,9 +54,16 @@ public class LocationController {
     @PostMapping("/updateLocation")
     public Result updateLocation(@RequestBody Locations locations){
         System.out.println(locations);
-        if (locations == null || locations.getId() == null) return Result.fail().message("空数据");
+        //新增
+        if (locations == null) {
+            return Result.fail().message("空数据");
+        }//新增
+        else if (locations.getId() == null) {
+            return addLocation(locations);
+        }
+        //更新
         //需要传入id
-        if (locationService.updateById(locations)) return Result.ok().message("更新成功");
+        if (locationService.updateById(locations)) return Result.ok().message("成功");
         return Result.fail().message("更新失败 请重试");
     }
 
