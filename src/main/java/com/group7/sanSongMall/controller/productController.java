@@ -31,6 +31,32 @@ public class productController {
     @Autowired
     private com.group7.sanSongMall.service.categoryService categoryService;
 
+    @ApiOperation("修改商品")
+    @PostMapping("/updPro")
+    public Result updPro(@RequestBody Product product){
+        System.out.println(product);
+        if (product.getProductId() == null){
+            product.setProductSales(0);
+            productService.save(product);
+            return Result.ok().message("新增商品成功");
+        }
+        if (productService.updateById(product))return Result.ok().message("更新成功");
+        return Result.fail().message("更新失败 请重试");
+    }
+
+    @ApiOperation("批量删除商品")
+    @DeleteMapping("/deleteProByIds")
+    public Result deleteProByIds(@RequestBody List<Integer> ids) {
+        if (productService.removeByIds(ids)) return Result.ok().message("删除成功");
+        return Result.fail().message("删除失败");
+    }
+
+    @ApiOperation("删除单个商品")
+    @DeleteMapping("/deleteProById")
+    public Result deleteProByIds(String id) {
+        if (productService.removeById(id)) return Result.ok().message("删除成功");
+        return Result.fail().message("删除失败");
+    }
 
     @ApiOperation("获取所有的商品信息")
     @GetMapping("/getAllProduct")
@@ -42,7 +68,7 @@ public class productController {
     @ApiOperation("根据商品id,获取商品详细信息")
     @GetMapping("/getProductById")
     public Result getProductById(String id) {
-        if (StringUtils.isEmpty(id))return Result.fail().message("空数据");
+        if (StringUtils.isEmpty(id)) return Result.fail().message("空数据");
         return Result.ok(productService.getProductById(id));
     }
 
@@ -50,7 +76,7 @@ public class productController {
     @ApiOperation("根据商品分类名称获取首页展示的商品信息")
     @RequestMapping("/getPromoProduct")
     public Result getCarousePic(String categoryName) {
-        if (StringUtils.isEmpty(categoryName))return Result.fail().message("空数据");
+        if (StringUtils.isEmpty(categoryName)) return Result.fail().message("空数据");
 
         return Result.ok(
                 productService.getCarousePic(
