@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 @Api(tags = "数据展示")
@@ -44,11 +44,12 @@ public class dataShow {
         //筛选出来所有有效的 订单支付成功的为有效
         List<orders> collect = list.stream().filter(orders -> (orders.getState() == 1)).collect(Collectors.toList());
         //日期筛选
-        Map<String,Double> mp = new HashMap<>();
+        Map<String,Double> mp = new TreeMap<>();
         for (orders orders : collect) {
             String cur  = getMonAndDay(orders.getOrderTime().toString());
             mp.put(cur,mp.getOrDefault(cur,0.0) + orders.getProductPrice());
         }
+
         return Result.ok(mp);
     }
     public String getMonAndDay(String time){

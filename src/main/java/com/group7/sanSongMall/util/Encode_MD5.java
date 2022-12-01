@@ -7,9 +7,12 @@
 
 package com.group7.sanSongMall.util;
 
+import io.swagger.annotations.ApiModel;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+@ApiModel("加密工具类")
 public class Encode_MD5 {
     /**
      * 加密

@@ -7,9 +7,11 @@
 
 package com.group7.sanSongMall.util;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 
 @Getter
+@ApiModel("返回体校验码")
 public enum ResultCodeEnum {
     /**
      * @code 200

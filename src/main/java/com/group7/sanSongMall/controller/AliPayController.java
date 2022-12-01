@@ -17,6 +17,7 @@ import com.group7.sanSongMall.config.AliPayConfig;
 import com.group7.sanSongMall.entity.AliPay;
 import com.group7.sanSongMall.entity.orders;
 import com.group7.sanSongMall.util.Result;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,8 +36,8 @@ import java.util.Map;
  *
  * @author liyaj
  * @date 2022/11/28
- */// xjlugv6874@sandbox.com
-// 9428521.24 - 30 = 9428491.24 + 30 = 9428521.24
+ */
+@Api(tags = "支付宝沙箱支付")
 @RestController
 @RequestMapping("/alipay")
 public class AliPayController {

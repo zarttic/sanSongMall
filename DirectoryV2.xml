@@ -36,4 +36,5 @@
           extension="java"/>
     <tree path="/src/main/java/com/group7/sanSongMall/controller/productpicController.java" title="商品图片管理器"
           extension="java"/>
+    <tree path="/src/main/java/com/group7/sanSongMall/util/SnowFlake.java" title="雪花算法" extension="java"/>
 </trees>

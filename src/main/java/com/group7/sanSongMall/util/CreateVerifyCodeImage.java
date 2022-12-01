@@ -7,10 +7,13 @@
 
 package com.group7.sanSongMall.util;
 
+import io.swagger.annotations.ApiModel;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+@ApiModel("验证码生成器")
 public class CreateVerifyCodeImage {
 
     /**

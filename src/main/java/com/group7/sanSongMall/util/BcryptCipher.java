@@ -7,12 +7,14 @@
 
 package com.group7.sanSongMall.util;
 
+import io.swagger.annotations.ApiModel;
 import org.apache.commons.lang3.StringUtils;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@ApiModel("加密工具类")
 public class BcryptCipher {
     // generate salt seed
     private static final int SALT_SEED = 12;

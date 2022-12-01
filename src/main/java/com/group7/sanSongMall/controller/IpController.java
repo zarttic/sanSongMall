@@ -7,6 +7,7 @@
 
 package com.group7.sanSongMall.controller;
 
+import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+@Api(tags = "ip展示")
 @RestController
 @RequestMapping("/ip")
 public class IpController {

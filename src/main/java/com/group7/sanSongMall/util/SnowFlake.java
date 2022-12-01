@@ -7,6 +7,8 @@
 
 package com.group7.sanSongMall.util;
 
+import io.swagger.annotations.ApiModel;
+
 /**
  * Twitter_Snowflake<br>
  * SnowFlake的结构如下(每部分用-分开):<br>
@@ -20,7 +22,7 @@ package com.group7.sanSongMall.util;
  * SnowFlake的优点是，整体上按照时间自增排序，并且整个分布式系统内不会产生ID碰撞(由数据中心ID和机器ID作区分)，并且效率较高，经测试，SnowFlake每秒能够产生26万ID左右。
  *
  * @author liyajun
- */
+ */@ApiModel(value = "订单号工具")
 public class SnowFlake {
 
     // ==============================Fields===========================================

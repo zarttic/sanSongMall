@@ -126,7 +126,8 @@ public class ordersController {
                     orders.setDelay(7200);
                     Product data = productService.getProductById(String.valueOf(shoppingcart.getProductId()));
                     //使用实际销售价格计算
-                    orders.setProductPrice(shoppingcart.getNum() * Double.parseDouble(data.getProductSellingPrice()));
+//                    orders.setProductPrice(shoppingcart.getNum() * Double.parseDouble(data.getProductSellingPrice()));
+                    orders.setProductPrice( Double.parseDouble(data.getProductSellingPrice()));
                     ordersService.save(orders);
                 }
 

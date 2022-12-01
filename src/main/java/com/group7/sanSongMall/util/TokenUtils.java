@@ -15,6 +15,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.group7.sanSongMall.entity.TokenBody;
 import com.group7.sanSongMall.entity.User;
+import io.swagger.annotations.ApiModel;
 
 import java.util.Date;
 
@@ -24,6 +25,7 @@ import java.util.Date;
  * @author liyaj
  * @date 2022/11/17
  */
+@ApiModel(value = "Token工具")
 public class TokenUtils {
 
     /**
@@ -44,7 +46,7 @@ public class TokenUtils {
 
         String token=null;
         try {
-            Date expireAt=new Date(System.currentTimeMillis()+EXPIRE_TIME);
+            Date expireAt=new Date(System.currentTimeMillis() + EXPIRE_TIME);
             token = JWT.create()
                     //发行人
                     .withIssuer("auth0")
