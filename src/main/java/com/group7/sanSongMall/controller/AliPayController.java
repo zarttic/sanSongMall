@@ -133,7 +133,7 @@ public class AliPayController {
                 List<orders> or = ordersService.getOrderByOrderId(outTradeNo);
                 for (orders orders : or) {
                     orders.setState(1);//设置购买状态
-                    orders.setDelay(0);//消除延时
+                    orders.setDelay(0L);//消除延时
                     ordersService.updateById(orders);
                 }
 
