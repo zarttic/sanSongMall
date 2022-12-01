@@ -39,7 +39,7 @@ public class orders {
 
     private Integer state;
 
-    private Integer delay;
+    private Long delay;
 
     private Timestamp orderTime;
 

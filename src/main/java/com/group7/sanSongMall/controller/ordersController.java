@@ -47,7 +47,7 @@ public class ordersController {
     public Result setExpired(String orderId){
         List<orders> orderByOrderId = ordersService.getOrderByOrderId(orderId);
         for (int i = 0; i < orderByOrderId.size(); i++) {
-            orderByOrderId.get(i).setDelay(0);
+            orderByOrderId.get(i).setDelay(0L);
             orderByOrderId.get(i).setState(-1);
             ordersService.updateById(orderByOrderId.get(i));
         }
@@ -123,7 +123,8 @@ public class ordersController {
                     orders.setLocation(locationId);
                     orders.setState(0);
                     //为秒数 默认为两小时
-                    orders.setDelay(7200);
+                    Long delay = System.currentTimeMillis() + 7200000;
+                    orders.setDelay(delay);
                     Product data = productService.getProductById(String.valueOf(shoppingcart.getProductId()));
                     //使用实际销售价格计算
 //                    orders.setProductPrice(shoppingcart.getNum() * Double.parseDouble(data.getProductSellingPrice()));
