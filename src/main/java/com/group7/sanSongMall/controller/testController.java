@@ -7,6 +7,7 @@
 
 package com.group7.sanSongMall.controller;
 
+import com.group7.sanSongMall.util.Result;
 import io.swagger.annotations.Api;
 import org.springframework.boot.SpringBootVersion;
 import org.springframework.core.SpringVersion;
@@ -19,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/test")
 public class testController {
     @GetMapping("/test")
-    public String test(){
+    public Result test(){
         String springVersion = SpringVersion.getVersion();
         String springBootVersion = SpringBootVersion.getVersion();
-        return "Spring版本:"+springVersion+"\nSpringBoot版本:"+springBootVersion;
+        return Result.ok("Spring版本:"+springVersion+"\nSpringBoot版本:"+springBootVersion);
     }
 }
