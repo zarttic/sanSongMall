@@ -20,7 +20,7 @@ spring:
     name: samsong_mall
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://10.131.35.162:3306/storedb
+    url: jdbc:mysql://10.132.207.67:3306/storedb
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -42,7 +42,7 @@ spring:
       max-request-size: 100MB
   redis:
     database: 11
-    host: 10.131.35.162
+    host: 101.34.56.158
     port: 6379
 server:
   port: 9001
